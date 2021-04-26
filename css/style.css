@@ -1,0 +1,28 @@
+body{
+    background-color: white;
+}
+
+#images{
+    display: inline-block;
+    margin-top: 150px;
+    margin-left: 20%;
+}
+h1{
+    text-align: center;
+    background-color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.imgs{
+    border: 20px black;
+    width: 200px;
+    height: 300px;
+    border: groove 20px;
+    padding: 30px;
+    
+}
+
+footer label{
+    margin-left: 40%;
+    background-color: violet;
+}
