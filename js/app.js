@@ -65,9 +65,9 @@ function render(){
     }
     while ((leftProduct === rightProduct) || (centerProduct === rightProduct));
 
-    left.scr = arrObj[leftProduct].imgPath;
-    center.scr = arrObj[centerProduct].imgPath;
-    right.scr = arrObj[rightProduct].imgPath;
+    left.src = arrObj[leftProduct].imgPath;
+    center.src = arrObj[centerProduct].imgPath;
+    right.src = arrObj[rightProduct].imgPath;
 
     leftProductIndex = leftProduct;
     centerProductIndex = centerProduct;
@@ -86,7 +86,7 @@ imageSection.addEventListener('clicked' , eventHandler);
 function eventHandler(event){
     counterAttembYouAreDoing+=1;
     if (counterAttembYouAreDoing <= numOfAttempts){
-        if((e.target.id == 'left' || e.target.id == 'center' || e.target.id == 'right' ) && clickNumber < 25){
+    if((e.target.id == 'left' || e.target.id == 'center' || e.target.id == 'right' ) && clickNumber < 25){
             if (event.target.id == 'left'){
                 arrObj[leftProductIndex].clicked++;
             }
