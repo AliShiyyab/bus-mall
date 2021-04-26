@@ -84,25 +84,20 @@ render();
 imageSection.addEventListener('clicked' , eventHandler);
 
 function eventHandler(event){
-    counterAttembYouAreDoing+=1;
-    if (counterAttembYouAreDoing <= numOfAttempts){
     if((e.target.id == 'left' || e.target.id == 'center' || e.target.id == 'right' ) && clickNumber < 25){
-            if (event.target.id == 'left'){
-                arrObj[leftProductIndex].clicked++;
-            }
-            if (vent.target.id == 'center'){
-                arrObj[centerProductIndex].clicked++;
-            }
-            if (event.target.id == 'right'){
-                arrObj[rightProductIndex].clicked++;
-            }
+        if (event.target.id == 'left'){
+            arrObj[leftProductIndex].clicked++;
         }
+        if (vent.target.id == 'center'){
+            arrObj[centerProductIndex].clicked++;
+        }
+        if (event.target.id == 'right'){
+            arrObj[rightProductIndex].clicked++;
+        }
+    clickNumber++;
     render();
     }
     else{
         console.log(arrObj);
     }
 }
-
-
-
