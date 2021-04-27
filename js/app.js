@@ -35,8 +35,8 @@ var clicked = 0;
 let rightCounter = 0;
 let leftCounter = 0;
 let midCounter = 0;
-
-
+let viewArr = [];
+let voteArr = [];
 
 
 let Products = function(name){
@@ -86,6 +86,10 @@ function render(){
     Products.all[leftProduct].show++;
     Products.all[centerProduct].show++;
     Products.all[rightProduct].show++;
+
+    for (var i=0;i< assets.length ; i++){
+        viewArr[i] = Products.all[i].show; 
+    }  
 }
 
 render();
@@ -96,26 +100,27 @@ leftImg.addEventListener('click' , eventHandler);
 
 
 function eventHandler(event){
-
+    render();
     if(clicked <= 24){
-        render();
         if (event.target.id == 'leftImage'){
             console.log("Left image clicked");
             Products.all[leftProduct].clicks++;
         }
         else if (event.target.id == 'midImage'){  
             console.log("Middle image clicked");
-              
             Products.all[centerProduct].clicks++;
         }
         else if (event.target.id == 'rightImage'){
             console.log("Right image clicked");
-
             Products.all[rightProduct].clicks++;
         }   
         clicked++;
+        for (let i = 0 ; i < assets.length ; i++){
+            voteArr[i] = Products.all[i].clicks;
+        }
     }
     else {
+        render2();
         console.log("Inside else")
         rightImg.removeEventListener('click',eventHandler);
         leftImg.removeEventListener('click',eventHandler);
@@ -129,4 +134,38 @@ function eventHandler(event){
         }
     }
 }
-       
+
+
+function render2(){
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: assets,
+            datasets: [{
+                label: '# of Votes',
+                data:voteArr,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor:  'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            },
+            {
+                label: '# of views',
+                data:viewArr,
+                backgroundColor: 
+                'rgba(75, 192, 240, 1)',
+                borderColor: 'rgba(54, 162, 235, 0.2)',
+                borderWidth: 1
+            }        
+        ],
+        },
+        options: {
+            scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+            }
+        }
+    });
+    
+}
