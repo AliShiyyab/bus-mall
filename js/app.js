@@ -129,17 +129,4 @@ function eventHandler(event){
         }
     }
 }
-            /*
-assets=[{name: bag.jpg,
-imgPath: String,
-show: 0,
-clicks:0},
- ]
-
-
-1 : create element 
-2 : loop :: Products :: Products.name, Products.show, Products.clicks
-
-value = concat(result_show.name, result_show.show)
-*/
-
+       
