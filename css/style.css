@@ -22,7 +22,37 @@ h1{
     
 }
 
-footer label{
+main p{
+    margin-left: 3%;
+    margin-right: 3%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 15px;
+    background-color: lightgray;
+}
+
+#labelIndex{
     margin-left: 40%;
     background-color: violet;
+}
+
+footer{
+    text-align: center;
+    font-size: small;
+    color: gray;
+    padding-bottom: 2%;
+}
+
+#divs{
+    margin-left: 25%;
+    margin-right: 25%;
+    color: black;
+    font-weight: bold;
+}
+
+#results{
+    margin-top: 7%;
+    margin-left: 47%;
+}
+#buttons{
+    margin-left: 48%;
 }

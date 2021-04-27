@@ -1,5 +1,8 @@
 'use strict'
 
+
+
+
 let assets=['bag.jpg',
     'banana.jpg',
     'bathroom.jpg',
@@ -21,41 +24,47 @@ let assets=['bag.jpg',
     'water-can.jpg',
     'wine-glass.jpg'];
 
-let left =document.getElementById('leftImage');
-let center = document.getElementById('midImage');
-let right = document.getElementById('rightImage');
-let imageSection = document.getElementById('images');
+let imgsection = document.getElementById('images');
+let rightImg = document.getElementById('rightImage');
+let midImg = document.getElementById('midImage');
+let leftImg = document.getElementById('leftImage');
+let viewe = document.getElementById('view');
+let list = document.getElementById('list');
+let resultDiv = document.getElementById('divs');
+var clicked = 0;
+let rightCounter = 0;
+let leftCounter = 0;
+let midCounter = 0;
 
-let centerProductIndex = 0;
-let leftProductIndex = 0;
-let rightProductIndex = 0;
-let numOfAttempts = 25;
-let counterAttembYouAreDoing = 0;
-var arrObj=[];
 
-function products(name){
-    this.clicked=0;
-    this.viewed=0;
+
+
+let Products = function(name){
     this.name = name.split('.')[0];
     this.imgPath= `./assets/${name}`;
-    arrObj.push(this);
-}
+    this.show = 0;
+    this.clicks = 0;
+    Products.all.push(this);
+};
+
+Products.all = [];
 
 function randomFun(min,max){
-    var result = Math.floor(Math.random()*(max-min+1)-min);
-    return result;
+    return Math.floor(Math.random()*(max-min+1)-min);
 }
 
-for(let i=0 ; i < assets.length ; i++){
-    new products(assets[i]);
+for (let i = 0; i < assets.length; i++) {
+    new Products(assets[i]);
 }
 
-let clickNumber = 0;
-
+let leftProduct = 0;
+let centerProduct = 0;
+let rightProduct = 0;
 function render(){
-    let leftProduct = randomFun(0 , assets.length - 1);
-    let centerProduct;
-    let rightProduct;
+    
+     leftProduct = randomFun(0 , assets.length - 1);
+     centerProduct;
+     rightProduct;
     do{
         centerProduct = randomFun(0 , assets.length -1);
     }
@@ -65,39 +74,72 @@ function render(){
     }
     while ((leftProduct === rightProduct) || (centerProduct === rightProduct));
 
-    left.src = arrObj[leftProduct].imgPath;
-    center.src = arrObj[centerProduct].imgPath;
-    right.src = arrObj[rightProduct].imgPath;
 
-    leftProductIndex = leftProduct;
-    centerProductIndex = centerProduct;
-    rightProductIndex = rightProduct;
+    leftImg.src = Products.all[leftProduct].imgPath;
+    midImg.src = Products.all[centerProduct].imgPath;
+    rightImg.src = Products.all[rightProduct].imgPath;
 
-    arrObj[leftProductIndex].viewed++;
-    arrObj[centerProductIndex].viewed++;
-    arrObj[rightProductIndex].viewed++;
+    leftCounter = leftProduct;
+    midCounter = centerProduct;
+    rightCounter = rightProduct;
 
+    Products.all[leftProduct].show++;
+    Products.all[centerProduct].show++;
+    Products.all[rightProduct].show++;
 }
 
 render();
 
-imageSection.addEventListener('clicked' , eventHandler);
+rightImg.addEventListener('click' , eventHandler);
+midImg.addEventListener('click' , eventHandler);
+leftImg.addEventListener('click' , eventHandler);
+
 
 function eventHandler(event){
-    if((e.target.id == 'left' || e.target.id == 'center' || e.target.id == 'right' ) && clickNumber < 25){
-        if (event.target.id == 'left'){
-            arrObj[leftProductIndex].clicked++;
+
+    if(clicked <= 24){
+        render();
+        if (event.target.id == 'leftImage'){
+            console.log("Left image clicked");
+            Products.all[leftProduct].clicks++;
         }
-        if (vent.target.id == 'center'){
-            arrObj[centerProductIndex].clicked++;
+        else if (event.target.id == 'midImage'){  
+            console.log("Middle image clicked");
+              
+            Products.all[centerProduct].clicks++;
         }
-        if (event.target.id == 'right'){
-            arrObj[rightProductIndex].clicked++;
-        }
-    clickNumber++;
-    render();
+        else if (event.target.id == 'rightImage'){
+            console.log("Right image clicked");
+
+            Products.all[rightProduct].clicks++;
+        }   
+        clicked++;
     }
-    else{
-        console.log(arrObj);
+    else {
+        console.log("Inside else")
+        rightImg.removeEventListener('click',eventHandler);
+        leftImg.removeEventListener('click',eventHandler);
+        midImg.removeEventListener('click',eventHandler);
+        viewe.style = "";
+        for (let i = 0; i < 20 ; i++) {
+            console.log(i)
+            let listItem = document.createElement('li');
+            listItem.textContent = `${Products.all[i].name} had ${Products.all[i].clicks} Voted and ${Products.all[i].show} Shown`;
+            list.appendChild(listItem);
+        }
     }
 }
+            /*
+assets=[{name: bag.jpg,
+imgPath: String,
+show: 0,
+clicks:0},
+ ]
+
+
+1 : create element 
+2 : loop :: Products :: Products.name, Products.show, Products.clicks
+
+value = concat(result_show.name, result_show.show)
+*/
+
