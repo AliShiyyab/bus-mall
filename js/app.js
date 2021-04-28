@@ -31,6 +31,7 @@ let leftImg = document.getElementById('leftImage');
 let viewe = document.getElementById('view');
 let list = document.getElementById('list');
 let resultDiv = document.getElementById('divs');
+let RemoveButton = document.getElementById('ButtonRemoveLocalStorgeData');
 var clicked = 0;
 let rightCounter = 0;
 let leftCounter = 0;
@@ -55,7 +56,6 @@ function updateProuducts (){
 }
 
 function getterProduct(){
-
     var productsStrings =localStorage.getItem('productOutPut');
     if(productsStrings){
         Products.all = JSON.parse(productsStrings);
@@ -64,7 +64,17 @@ function getterProduct(){
     }
 }
 
-function setterProduct(){}
+function remove(){
+    //document.getElementById('info').innerHTML = localStorage.removeItem('productOutPut');
+    //list.innerHTML = localStorage.removeItem('productOutPut');
+    var checkDeleted = prompt("Do you need to delete all data store ? y/n");
+    if (checkDeleted.toLowerCase() == 'y'){
+        document.getElementById('info').innerHTML = "Deleted Chart. " + localStorage.removeItem('productOutPut');
+        list.innerHTML = "Deleted list. " + localStorage.removeItem('productOutPut');
+        alert("Deleted Done");
+    }
+    
+}
 
 function randomFun(min,max){
     return Math.floor(Math.random()*(max-min+1)-min);
@@ -95,9 +105,9 @@ function render(){
     midImg.src = Products.all[centerProduct].imgPath;
     rightImg.src = Products.all[rightProduct].imgPath;
 
-    leftCounter = leftProduct;
-    midCounter = centerProduct;
-    rightCounter = rightProduct;
+    //leftCounter = leftProduct;
+    //midCounter = centerProduct;
+    //rightCounter = rightProduct;
 
     Products.all[leftProduct].show++;
     Products.all[centerProduct].show++;
@@ -150,7 +160,6 @@ function eventHandler(event){
             let listItem = document.createElement('li');
             listItem.textContent = `${Products.all[i].name} had ${Products.all[i].clicks} Voted and ${Products.all[i].show} Shown`;
             list.appendChild(listItem);
-            updateProuducts();
         }
     }
 }
