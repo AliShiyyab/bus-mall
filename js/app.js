@@ -49,6 +49,23 @@ let Products = function(name){
 
 Products.all = [];
 
+function updateProuducts (){
+    var productsStrings = JSON.stringify(Products.all);
+    localStorage.setItem('productOutPut',productsStrings);
+}
+
+function getterProduct(){
+
+    var productsStrings =localStorage.getItem('productOutPut');
+    if(productsStrings){
+        Products.all = JSON.parse(productsStrings);
+        render();
+        render2();
+    }
+}
+
+function setterProduct(){}
+
 function randomFun(min,max){
     return Math.floor(Math.random()*(max-min+1)-min);
 }
@@ -74,7 +91,6 @@ function render(){
     }
     while ((leftProduct === rightProduct) || (centerProduct === rightProduct));
 
-
     leftImg.src = Products.all[leftProduct].imgPath;
     midImg.src = Products.all[centerProduct].imgPath;
     rightImg.src = Products.all[rightProduct].imgPath;
@@ -89,7 +105,7 @@ function render(){
 
     for (var i=0;i< assets.length ; i++){
         viewArr[i] = Products.all[i].show; 
-    }  
+    }
 }
 
 render();
@@ -105,14 +121,17 @@ function eventHandler(event){
         if (event.target.id == 'leftImage'){
             console.log("Left image clicked");
             Products.all[leftProduct].clicks++;
+            updateProuducts();
         }
         else if (event.target.id == 'midImage'){  
             console.log("Middle image clicked");
             Products.all[centerProduct].clicks++;
+            updateProuducts();
         }
         else if (event.target.id == 'rightImage'){
             console.log("Right image clicked");
             Products.all[rightProduct].clicks++;
+            updateProuducts();
         }   
         clicked++;
         for (let i = 0 ; i < assets.length ; i++){
@@ -131,6 +150,7 @@ function eventHandler(event){
             let listItem = document.createElement('li');
             listItem.textContent = `${Products.all[i].name} had ${Products.all[i].clicks} Voted and ${Products.all[i].show} Shown`;
             list.appendChild(listItem);
+            updateProuducts();
         }
     }
 }
@@ -169,3 +189,5 @@ function render2(){
     });
     
 }
+
+getterProduct();
